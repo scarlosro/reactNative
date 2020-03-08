@@ -6,20 +6,9 @@ var player = {score: 1, name: 'Jeff'};
 
 var newPlayer = Object.assign({}, player, {score: 2});
 
-class Square extends React.Component {
-    //agregando el constructor
-
-    render() {
-      return (
-        <button 
-        className="square" 
-        onClick={() => { this.props.onClick() }}
-        >
-          {this.props.value}
-        </button>
-      );
-    }
-  }
+function Square(props){
+    return <button className="square" onClick={props.onClick}> {props.value}  </button>
+}
   
   class Board extends React.Component {
 
@@ -27,13 +16,15 @@ class Square extends React.Component {
         super(props);
         this.state = {
             squares: Array(9).fill(null),
+            xIsNext: true,
             };
     }
     handleClick(i){
         const squares = this.state.squares.slice();
-        squares[i] = 'X';
+        squares[i] = this.state.xIsNext ? 'X': 'O' ;
         this.setState({
-            squares: squares
+            squares: squares,
+            xIsNext: !this.state.xIsNext,
         });
     }
     renderSquare(i) {
@@ -43,7 +34,7 @@ class Square extends React.Component {
     }
   
     render() {
-      const status = 'Next player: X';
+      const status = 'Next player: ' + this.state.xIsNext ? 'X' : 'O';
   
       return (
         <div>
