@@ -47,7 +47,7 @@ function Square(props){
     
       return (
         <div>
-          <div className="status">{status}</div>
+          <div className="status"><h1>{status}</h1></div>
           <div className="board-row">
             {this.renderSquare(0)}
             {this.renderSquare(1)}
