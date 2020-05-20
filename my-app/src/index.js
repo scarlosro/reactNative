@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 
 var player = {score: 1, name: 'Jeff'};
@@ -13,7 +14,7 @@ function Square(props){
   class Board extends React.Component {
     //ok
     renderSquare(i) {
-      return <Square value={this.props.squares[i]}
+      return <Square   value={this.props.squares[i]}
       onClick ={() => this.props.onClick(i)}
       />;
     }
@@ -87,33 +88,43 @@ function Square(props){
 
     const moves = history.map((step, move) => {
       const desc = move ?
-        'Go to move #' + move :
-        'Go to game start';
+        'Ahora mueve #' + move :
+        'Empieza el juego';
       return (
         <li key={move}>
-          <button onClick={() => this.jumpTo(move)}>{desc}</button>
+          <button className="Movimiento" onClick={() => this.jumpTo(move)}>{desc}</button>
         </li>
       );
     });
 
     let status;
     if (winner) {
-      status = "Winner: " + winner;
+      status = "Ganador: " + winner;
     } else {
-      status = "Next player: " + (this.state.xIsNext ? "X" : "O");
+      status = "Siguiente Jugador: " + (this.state.xIsNext ? "X" : "O");
     }
 
     return (
       <div className="game">
-        <div className="game-board">
+        <div>
+        <div>
+          <nav class="navbar navbar-light bg-info">
+            <span class="h2">TIC TAC TOE</span>
+          </nav>
+        </div>
+        <div class="text-center">
+          <span class="h3"> {status} </span>
+        </div>
+       </div>
+        <div className="game-board text-center">
           <Board
             squares={current.squares}
             onClick={i => this.handleClick(i)}
           />
         </div>
-        <div className="game-info">
-          <div>{status}</div>
-          <ol>{moves}</ol>
+        <br></br>
+        <div className="game-info text-center">
+          {moves}
         </div>
       </div>
     );
